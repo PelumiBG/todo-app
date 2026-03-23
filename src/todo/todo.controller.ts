@@ -19,7 +19,7 @@ export class TodoController {
     }
   }
 
-  @Get()
+  @Get('all')
   async findAll(@Param('userId') userId: string) {
     const todo = await this.todoService.findAll(userId);
 
@@ -30,7 +30,7 @@ export class TodoController {
     }
   }
 
-  @Patch()
+  @Patch('update')
   async update(@Param('id') id: string, todoRepo: Todo,
   @Body() updateTodoDto: UpdateTodoDto, ) {
     const todo = await this.todoService.update(id, todoRepo.userId, updateTodoDto);
