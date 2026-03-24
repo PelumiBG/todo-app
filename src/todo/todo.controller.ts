@@ -52,14 +52,15 @@ export class TodoController {
     };
   }
 
-  @Delete('delete/:id')
+  @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  async remove(@Param('id') id: string, todoRepo: Todo) {
-    const todo = await this.todoService.remove(id);
+  async remove(@Param('id') id: string) {
+    const del = await this.todoService.delete(id);
 
     return {
       success: true,
-      todo
-    };
+      message:"Todo deleted",
+      data: del
+    }
   }
 }

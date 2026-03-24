@@ -47,15 +47,13 @@ export class TodoService {
     return this.todoRepo.save(todo);
   }
 
-  async remove(id: string ): Promise<void> {
-    const todo = await this.todoRepo.findOne({ where: { id } });
+  async delete(id: string): Promise<void> {
+    const todo = await this.todoRepo.delete(id);
 
-    if (!todo) {
-      throw new NotFoundException('Todo list not Existed');
-    }
+    if(!todo) {
+      throw new NotFoundException("Todo Id Not Found")
+    };
 
-    const rem = await this.todoRepo.remove(todo);
-
-    await this.todoRepo.save(rem);
+    await this.todoRepo.delete(id)
   }
 }
