@@ -1,21 +1,21 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateTodoDto } from './create-todo.dto';
-import { IsString, IsNotEmpty, IsDate } from 'class-validator';
+import { IsString, IsNotEmpty, IsDateString } from 'class-validator';
 
 export class UpdateTodoDto extends PartialType(CreateTodoDto) {
-    @IsString()
-    @IsNotEmpty()
-    title: string
-    
-    @IsString()
-    @IsNotEmpty()
-    description: string
+  @IsString()
+  @IsNotEmpty()
+  title: string;
 
-    @IsDate()
-    @IsNotEmpty()
-    dueDate: Date
+  @IsString()
+  @IsNotEmpty()
+  description: string;
 
-    @IsString()
-    @IsNotEmpty()
-    userId: string
+  @IsDateString()
+  @IsNotEmpty()
+  dueDate: Date;
+
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
 }

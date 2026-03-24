@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, ValidationPipe, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  ValidationPipe,
+  HttpStatus,
+  Query,
+} from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
@@ -6,7 +18,7 @@ import { Todo } from './entities/todo.entity';
 
 @Controller('todo')
 export class TodoController {
-  constructor ( private readonly todoService: TodoService) {} 
+  constructor(private readonly todoService: TodoService) {}
 
   @Post('create')
   @HttpCode(201)
@@ -15,41 +27,39 @@ export class TodoController {
 
     return {
       success: true,
-      newTodo
-    }
+      newTodo,
+    };
   }
 
   @Get('all')
-  async findAll(@Param('userId') userId: string) {
+  async findAll(@Query('userId') userId: string) {
     const todo = await this.todoService.findAll(userId);
 
     return {
       success: 'All task Listed',
       count: todo.length,
-      todo
-    }
+      todo,
+    };
   }
 
-  @Patch('update')
-  async update(@Param('id') id: string, todoRepo: Todo,
-  @Body() updateTodoDto: UpdateTodoDto, ) {
-    const todo = await this.todoService.update(id, todoRepo.userId, updateTodoDto);
+  @Patch('update/:id')
+  async update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
+    const todo = await this.todoService.update(id, updateTodoDto);
 
     return {
       success: true,
-      updatedTodo: todo
-    }
+      updatedTodo: todo,
+    };
   }
-  
-  @Delete(':id')
-  @HttpCode(HttpStatus.OK)
-  async remove(
-    @Param('id') id: string, todoRepo: Todo) {
-      const todo = await this.todoService.remove(id, todoRepo.userId);
 
-      return {
-        success: true,
-        data: todo
-      }
-    }
+  @Delete('delete/:id')
+  @HttpCode(HttpStatus.OK)
+  async remove(@Param('id') id: string, todoRepo: Todo) {
+    const todo = await this.todoService.remove(id);
+
+    return {
+      success: true,
+      todo
+    };
+  }
 }

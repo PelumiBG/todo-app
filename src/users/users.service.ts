@@ -6,17 +6,16 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 
-
 @Injectable()
 export class UsersService {
-  constructor (
-    @InjectRepository (User)
-    private readonly userRepository : Repository<User>,
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async register(createUserDto: CreateUserDto) {
     const existing = await this.userRepository.findOne({
-      where: { email: createUserDto.email }
+      where: { email: createUserDto.email },
     });
 
     if (existing) {

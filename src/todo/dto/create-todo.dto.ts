@@ -1,18 +1,21 @@
-import { IsString, IsNotEmpty, IsDate } from "class-validator";
+import { IsString, IsNotEmpty, IsDateString } from 'class-validator';
 
 export class CreateTodoDto {
+  @IsString()
+  @IsNotEmpty()
+  title: string;
 
-    @IsString()
-    @IsNotEmpty()
-    title: string
+  @IsString()
+  @IsNotEmpty()
+  description: string;
 
-    @IsString()
-    @IsNotEmpty()
-    description: string
+  @IsDateString()
+  @IsNotEmpty()
+  dueDate: Date;
 
-    @IsDate()
-    @IsNotEmpty()
-    dueDate: Date
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
 
-    isActive: boolean
+  isActive: boolean;
 }

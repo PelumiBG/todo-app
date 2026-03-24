@@ -7,12 +7,13 @@ import { join } from 'path';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { TodoModule } from './todo/todo.module';
+import { Todo } from './todo/entities/todo.entity';
 
 @Module({
   imports: [
     // Load .env globally
     ConfigModule.forRoot({ isGlobal: true }),
- 
+
     // PostgreSQL connection via TypeORM
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -23,16 +24,15 @@ import { TodoModule } from './todo/todo.module';
         username: config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_NAME') || 'Todo-App',
-        entities: [User],
-        synchronize: true,       
+        entities: [User, Todo],
+        synchronize: true,
       }),
       inject: [ConfigService],
     }),
     UsersModule,
     TodoModule,
   ],
-  controllers: [ AppController ],
-  providers: [ AppService ]
+  controllers: [AppController],
+  providers: [AppService],
 })
-
 export class AppModule {}

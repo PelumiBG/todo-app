@@ -3,10 +3,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: "todo"})
+@Entity({ name: 'todo' })
 export class Todo {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -27,5 +27,5 @@ export class Todo {
   updatedAt: Date;
 
   @Column()
-  userId: string; 
+  userId: string;
 }

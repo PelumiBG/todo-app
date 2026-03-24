@@ -1,18 +1,20 @@
-import { IsEmail, IsNumber, IsString, IsStrongPassword } from "class-validator";
+import { IsEmail, IsNumber, IsString, IsStrongPassword } from 'class-validator';
 
-export class CreateUserDto {r
+export class CreateUserDto {
+  @IsString()
+  userId: string;
 
-    @IsString()
-    firstName: string;
+  @IsString()
+  firstName: string;
 
-    @IsString()
-    lastName: string;
+  @IsString()
+  lastName: string;
 
-    @IsEmail()
-    email: string
+  @IsEmail()
+  email: string;
 
-    @IsStrongPassword()
-    password: string
+  @IsStrongPassword()
+  password: string;
 
-    isActive: boolean
-};
+  isActive: boolean;
+}
